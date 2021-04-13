@@ -5,7 +5,7 @@ body {
 
 ol,
 ul {
-  padding-left: 30px;
+  /*padding-left: 30px;*/
 }
 
 .board-row:after {
@@ -16,29 +16,30 @@ ul {
 
 .status {
   margin-bottom: 10px;
+  font-size: 3em;
 }
 
 .square {
   background: #fff;
   border: 1px solid #999;
   float: left;
-  font-size: 24px;
+  font-size: 3em;
   font-weight: bold;
-  line-height: 34px;
-  height: 64px;
+  /*line-height: 50px;*/
+  height: 100px;
   margin-right: -1px;
   margin-top: -1px;
-  //padding: 0;
+  padding: 0;
   text-align: center;
-  width: 64px;
+  width: 100px;
 }
 
 .square:focus {
-  outline: none;
+  /*outline: none;*/
 }
 
 .kbd-navigation .square:focus {
-  background: #ddd;
+  /*background: #ddd;*/
 }
 
 .game {
