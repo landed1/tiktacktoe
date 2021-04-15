@@ -10,6 +10,7 @@ class Game extends React.Component {
       history: [{ squares: Array(9).fill(null) }],
       xIsNext: true,
       stepNumber: 0,
+      stepPositions: [],
     };
   }
 
@@ -20,10 +21,15 @@ class Game extends React.Component {
     });
   };
 
-  handleClick = (i) => {
+  handleClick = (i, posi) => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
     const cSquares = current.squares.slice();
+    //We need to remove 'future' state if we took a step back and recreated new moves
+    const cStepPositions = this.state.stepPositions
+      .slice(0, this.state.stepNumber)
+      .concat([posi]);
+
     //check to see if a square has not been clicked or a win has not yet happened.
     if (calculateWinner(cSquares) || cSquares[i]) {
       return;
@@ -33,6 +39,7 @@ class Game extends React.Component {
       history: history.concat([{ squares: cSquares }]),
       xIsNext: !this.state.xIsNext,
       stepNumber: history.length,
+      stepPositions: cStepPositions,
     });
   };
 
@@ -43,19 +50,24 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move " + move : "Go to game start";
-      //at this point we know which move we are doing...
-      //console.log(move);
-      const colrow = move ? "col row" : "";
+      const coords = move ? " " + this.state.stepPositions[move - 1] : " ";
+
+      console.log(this.state.stepNumber);
+
+      //show current selected step bold
+
+      const isBold = move === this.state.stepNumber ? "selectedStep" : "";
 
       return (
         <li key={move}>
           <button
+            className={isBold}
             onClick={() => {
               this.jumpTo(move);
             }}>
             {desc}
           </button>
-          <span>&nbsp;{colrow}</span>
+          <span>{coords}</span>
         </li>
       );
     });
@@ -118,13 +130,8 @@ function calculateWinner(squares) {
   //check each line to see if they have the same type (X or O)
   for (let i = 0; i < lines.length; i++) {
     const [a, b, c] = lines[i];
-    //console.log("checking", lines[i]);
-    //console.log(a);
-    //console.log(squares[a] && squares[a]);
-    //console.log(squares[a], squares[b], squares[c]);
+
     if (squares[a] && squares[a] === squares[b] && squares[a] === squares[c]) {
-      //if ((squares[a] === squares[b]) === squares[c]) {
-      //console.log("winner found", lines[i]);
       return squares[a];
     }
   }

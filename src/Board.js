@@ -6,7 +6,7 @@ class Board extends React.Component {
     return (
       <Square
         value={this.props.squares[i]}
-        onClick={() => this.props.onClick(i)}
+        onClick={() => this.props.onClick(i, posi)}
         posi={posi ? posi[0] + " , " + posi[1] : ""}
       />
     );
@@ -21,13 +21,13 @@ class Board extends React.Component {
           {this.renderSquare(2, [3, 1])}
         </div>
         <div className='board-row'>
-          {this.renderSquare(3, [2, 1])}
+          {this.renderSquare(3, [1, 2])}
           {this.renderSquare(4, [2, 2])}
-          {this.renderSquare(5, [2, 3])}
+          {this.renderSquare(5, [3, 2])}
         </div>
         <div className='board-row'>
-          {this.renderSquare(6, [3, 1])}
-          {this.renderSquare(7, [3, 2])}
+          {this.renderSquare(6, [1, 3])}
+          {this.renderSquare(7, [2, 3])}
           {this.renderSquare(8, [3, 3])}
         </div>
       </div>
