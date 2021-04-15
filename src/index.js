@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
 import Board from "./Board";
+import Moves from "./Moves";
 
 class Game extends React.Component {
   constructor(props) {
@@ -48,28 +49,6 @@ class Game extends React.Component {
     const current = history[this.state.stepNumber];
     const winner = calculateWinner(current.squares);
 
-    const moves = history.map((step, move) => {
-      const desc = move ? "Go to move " + move : "Go to game start";
-      const coords = move ? " " + this.state.stepPositions[move - 1] : " ";
-
-      //show current selected step bold
-
-      const isBold = move === this.state.stepNumber ? "selectedStep" : "";
-
-      return (
-        <li key={move}>
-          <button
-            className={isBold}
-            onClick={() => {
-              this.jumpTo(move);
-            }}>
-            {desc}
-          </button>
-          <span>{coords}</span>
-        </li>
-      );
-    });
-
     let status;
 
     if (winner) {
@@ -85,7 +64,14 @@ class Game extends React.Component {
         </div>
         <div className='game-info'>
           <div>{status}</div>
-          <ul>{moves}</ul>
+          <ul>
+            <Moves
+              history={history}
+              stepPositions={this.state.stepPositions}
+              stepNumber={this.state.stepNumber}
+              jumpTo={this.jumpTo}
+            />
+          </ul>
         </div>
       </div>
     );
