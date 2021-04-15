@@ -43,6 +43,9 @@ class Game extends React.Component {
 
     const moves = history.map((step, move) => {
       const desc = move ? "Go to move " + move : "Go to game start";
+      //at this point we know which move we are doing...
+      //console.log(move);
+      const colrow = move ? "col row" : "";
 
       return (
         <li key={move}>
@@ -52,6 +55,7 @@ class Game extends React.Component {
             }}>
             {desc}
           </button>
+          <span>&nbsp;{colrow}</span>
         </li>
       );
     });
@@ -71,7 +75,7 @@ class Game extends React.Component {
         </div>
         <div className='game-info'>
           <div>{status}</div>
-          <ol>{moves}</ol>
+          <ul>{moves}</ul>
         </div>
       </div>
     );
@@ -81,6 +85,24 @@ class Game extends React.Component {
 // ========================================
 
 ReactDOM.render(<Game />, document.getElementById("root"));
+/*
+const aPos = [
+  [1, 1],
+  [2, 1],
+  [3, 1],
+  [1, 2],
+  [2, 2],
+  [3, 2],
+  [1, 3],
+  [2, 3],
+  [3, 3],
+]; 
+
+let a = Array()
+  .fill(0)
+  .map((x) => Array(10).fill(0));
+
+console.log(a);*/
 
 function calculateWinner(squares) {
   const lines = [
