@@ -52,8 +52,6 @@ class Game extends React.Component {
       const desc = move ? "Go to move " + move : "Go to game start";
       const coords = move ? " " + this.state.stepPositions[move - 1] : " ";
 
-      //console.log(this.state.stepNumber);
-
       //show current selected step bold
 
       const isBold = move === this.state.stepNumber ? "selectedStep" : "";
