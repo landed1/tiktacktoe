@@ -22,6 +22,16 @@ class Game extends React.Component {
     });
   };
 
+  sortMovesList = () => {
+    let cStepPositions, cHistory;
+    cStepPositions = this.state.stepPositions.concat().reverse();
+    cHistory = this.state.history.concat().reverse();
+    this.setState({
+      stepPositions: cStepPositions,
+      history: cHistory,
+    });
+  };
+
   handleClick = (i, posi) => {
     const history = this.state.history.slice(0, this.state.stepNumber + 1);
     const current = history[history.length - 1];
@@ -70,6 +80,7 @@ class Game extends React.Component {
               stepPositions={this.state.stepPositions}
               stepNumber={this.state.stepNumber}
               jumpTo={this.jumpTo}
+              sortMovesList={this.sortMovesList}
             />
           </ul>
         </div>

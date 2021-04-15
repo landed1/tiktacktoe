@@ -1,32 +1,56 @@
-function Moves(props) {
+import React from "react";
 
+class Moves extends React.Component {
+  constructor(props) {
+    super(props);
 
-    // TODO Provide a sorting option with a toggle.
-    
-  const moves = props.history.map((step, move) => {
-    const desc = move ? "Go to move " + move : "Go to game start";
+    this.state = {
+      sortDirection: false,
+    };
+  }
 
-    const coords = move ? " " + props.stepPositions[move - 1] : " ";
+  handleClick = () => {
+    this.props.sortMovesList(this.state.sortDirection);
+    this.setState({
+      sortDirection: !this.state.sortDirection,
+    });
+  };
 
-    //show current selected step bold
+  render() {
+    const moves = this.props.history.concat().map((step, move) => {
+      //console.log("step " + step.key + " move " + move);
+      console.log(this.state.sortDirection);
+      const desc = move ? "Go to move " + move : "Go to game start";
 
-    const isBold = move === props.stepNumber ? "selectedStep" : "";
+      const coords = move ? " " + this.props.stepPositions[move - 1] : " ";
+
+      //show current selected step bold
+
+      const isBold = move === this.props.stepNumber ? "selectedStep" : "";
+
+      return (
+        <li key={move}>
+          <button
+            className={isBold}
+            onClick={() => {
+              this.props.jumpTo(move);
+            }}>
+            {desc}
+          </button>
+          <span>{coords}</span>
+        </li>
+      );
+    });
 
     return (
-      <li key={move}>
-        <button
-          className={isBold}
-          onClick={() => {
-            props.jumpTo(move);
-          }}>
-          {desc}
+      <>
+        <button className='sort-button' onClick={this.handleClick}>
+          Sort Asc Desc
         </button>
-        <span>{coords}</span>
-      </li>
+        <div>{moves}</div>
+      </>
     );
-  });
-
-  return <div>{moves}</div>;
+  }
 }
 
 export default Moves;
