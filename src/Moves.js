@@ -19,7 +19,7 @@ class Moves extends React.Component {
   render() {
     const moves = this.props.history.concat().map((step, move) => {
       //console.log("step " + step.key + " move " + move);
-      console.log(this.state.sortDirection);
+      //console.log(this.state.sortDirection);
       const desc = move ? "Go to move " + move : "Go to game start";
 
       const coords = move ? " " + this.props.stepPositions[move - 1] : " ";

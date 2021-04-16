@@ -3,11 +3,28 @@ import Square from "./Square";
 
 class Board extends React.Component {
   renderSquare(i, posi) {
+    if (this.props.winner) {
+      console.log(this.props.winner.winningSet);
+      let [a, b, c] = this.props.winner.winningSet;
+      for (var i = 0; i < 9; i++) {
+        if (a === i) {
+          console.log("first square is ", i);
+        }
+        if (b === i) {
+          console.log("second square is ", i);
+        }
+        if (c === i) {
+          console.log("third square is ", i);
+        }
+      }
+    }
+
     return (
       <Square
         value={this.props.squares[i]}
         onClick={() => this.props.onClick(i, posi)}
         posi={posi ? posi[0] + " , " + posi[1] : ""}
+        winner={this.props.winner}
       />
     );
   }
